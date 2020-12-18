@@ -3,33 +3,39 @@ package com.fbugraaydin.springsecurity
 import javax.persistence.*
 
 @Entity
-@Table(name = "user")
+@Table(name = "user", uniqueConstraints = [
+    UniqueConstraint(columnNames = arrayOf("username"))
+])
 data class UserEntity(
-        @Id @GeneratedValue var id: Long? = null,
+        @Id @GeneratedValue(strategy = GenerationType.AUTO)
+        var id: Long? = null,
+
         var username: String,
+
         var password: String,
+
         var isActive: Boolean,
-        @OneToMany(mappedBy = "user", cascade = [CascadeType.ALL], fetch = FetchType.EAGER)
-        var roles: MutableSet<RoleEntity>? = mutableSetOf()
+
+        @ManyToMany(fetch = FetchType.EAGER)
+        @JoinTable(name = "user_role",
+                joinColumns = [JoinColumn(name = "user_id", referencedColumnName = "id")],
+                inverseJoinColumns = [JoinColumn(name = "role_id", referencedColumnName = "id")])
+        var roles: MutableList<RoleEntity> = mutableListOf()
 ) {
-    fun toDto(): User {
-        return User(userName = this.username,
+    fun toDto(): DefaultUser {
+        return DefaultUser(userName = this.username,
                 encPassword = this.password,
                 isActive = this.isActive,
-                roles = this.roles!!.map { Role(it.role) }.toMutableList())
-
+                roles = if (!this.roles.isNullOrEmpty()) this.roles.map { DefaultRole(it.role) }.toMutableList() else mutableListOf()
+        )
     }
-
 }
 
 @Entity
 @Table(name = "role")
 data class RoleEntity(
-        @Id @GeneratedValue
+        @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
         var id: Long? = null,
-        var role: String,
 
-        @ManyToOne(fetch = FetchType.EAGER, optional = false)
-        @JoinColumn(name = "user_id", nullable = false)
-        var user: UserEntity? = null
+        var role: String
 )

@@ -20,8 +20,8 @@ import javax.servlet.http.HttpServletResponse
 @Component
 class JwtFilter: OncePerRequestFilter() {
 
-    @Qualifier("userDetailsServiceImpl")
     @Autowired
+    @Qualifier("userDetailsServiceImpl")
     private val userDetailsService: UserDetailsService? = null
 
     @Autowired

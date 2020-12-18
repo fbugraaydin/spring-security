@@ -1,3 +1,3 @@
 package com.fbugraaydin.springsecurity
 
-class AuthResponse(jwt:String)
+class AuthResponse(val jwt:String)

@@ -3,7 +3,7 @@ package com.fbugraaydin.springsecurity
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
-data class User(val userName: String, val encPassword: String, val isActive: Boolean, val roles:MutableList<Role>) : UserDetails {
+data class DefaultUser(val userName: String, val encPassword: String, val isActive: Boolean, val roles: MutableList<DefaultRole>) : UserDetails {
 
     override fun getAuthorities(): MutableCollection<out GrantedAuthority> {
         return roles
@@ -23,7 +23,7 @@ data class User(val userName: String, val encPassword: String, val isActive: Boo
 
 }
 
-class Role(private var role:String) : GrantedAuthority {
+class DefaultRole(private var role: String) : GrantedAuthority {
     override fun getAuthority(): String {
         return this.role
     }

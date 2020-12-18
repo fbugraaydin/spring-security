@@ -1,16 +1,15 @@
 package com.fbugraaydin.springsecurity
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Component;
-
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.function.Function;
+import io.jsonwebtoken.Claims
+import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.SignatureAlgorithm
+import io.jsonwebtoken.io.Decoders
+import io.jsonwebtoken.security.Keys
+import org.springframework.security.core.userdetails.UserDetails
+import org.springframework.stereotype.Component
+import java.io.Serializable
+import java.util.*
+import java.util.function.Function
 
 @Component
 class JwtTokenUtil : Serializable {
@@ -29,8 +28,9 @@ class JwtTokenUtil : Serializable {
     }
 
     private fun getAllClaimsFromToken(token: String): Claims {
-        return Jwts.parser()
-                .setSigningKey(SIGNING_KEY)
+        return Jwts.parserBuilder()
+                .setSigningKey(KEY)
+                .build()
                 .parseClaimsJws(token)
                 .body
     }
@@ -40,21 +40,18 @@ class JwtTokenUtil : Serializable {
         return expiration.before(Date())
     }
 
-    fun generateToken(user: UserDetails): String {
-        return doGenerateToken(user.username)
+    fun generateToken(userDetails: UserDetails): String {
+        val claims: Map<String, Any> = HashMap()
+        return createToken(claims, userDetails.username)
     }
 
-    private fun doGenerateToken(subject: String): String {
-
-        val claims = Jwts.claims().setSubject(subject)
-        claims["scopes"] = Arrays.asList(SimpleGrantedAuthority("ROLE_ADMIN"))
-
-        return Jwts.builder()
-                .setClaims(claims)
-                .setIssuer("http://devglan.com")
+    private fun createToken(claims: Map<String, Any>, subject: String): String {
+        return Jwts.builder().setClaims(claims)
+                .setSubject(subject)
+                .setIssuer(ISSUER)
                 .setIssuedAt(Date(System.currentTimeMillis()))
                 .setExpiration(Date(System.currentTimeMillis() + ACCESS_TOKEN_VALIDITY_SECONDS * 1000))
-                .signWith(SignatureAlgorithm.HS256, SIGNING_KEY)
+                .signWith(KEY)
                 .compact()
     }
 
