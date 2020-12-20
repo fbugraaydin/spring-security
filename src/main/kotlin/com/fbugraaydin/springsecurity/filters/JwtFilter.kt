@@ -1,18 +1,16 @@
 package com.fbugraaydin.springsecurity.filters
 
-import com.fbugraaydin.springsecurity.HEADER_STRING
-import com.fbugraaydin.springsecurity.JwtTokenUtil
-import com.fbugraaydin.springsecurity.TOKEN_PREFIX
+import com.fbugraaydin.springsecurity.util.HEADER_STRING
+import com.fbugraaydin.springsecurity.util.JwtTokenUtil
+import com.fbugraaydin.springsecurity.util.TOKEN_PREFIX
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
-import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource
 import org.springframework.stereotype.Component
 import org.springframework.web.filter.OncePerRequestFilter
-import java.util.*
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse

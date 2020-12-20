@@ -1,5 +1,6 @@
-package com.fbugraaydin.springsecurity
+package com.fbugraaydin.springsecurity.service
 
+import com.fbugraaydin.springsecurity.UserDetailRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -12,9 +13,6 @@ class UserDetailsServiceImpl : UserDetailsService {
 
     @Autowired
     private lateinit var userDetailRepository: UserDetailRepository
-
-    @Autowired
-    private lateinit var passwordEncoder: PasswordEncoder
 
     override fun loadUserByUsername(username: String): UserDetails {
         val userName = userDetailRepository.findByUsername(username)

@@ -2,7 +2,7 @@ package com.fbugraaydin.springsecurity.controllers
 
 import com.fbugraaydin.springsecurity.AuthRequest
 import com.fbugraaydin.springsecurity.AuthResponse
-import com.fbugraaydin.springsecurity.JwtTokenUtil
+import com.fbugraaydin.springsecurity.util.JwtTokenUtil
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.beans.factory.annotation.Qualifier
 import org.springframework.http.HttpStatus

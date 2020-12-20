@@ -1,14 +1,12 @@
-package com.fbugraaydin.springsecurity
+package com.fbugraaydin.springsecurity.util
 
 import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 import java.security.Key
 
-
 const val ADMIN  = "ADMIN"
 const val DEFAULT = "DEFAULT"
 
-val SIGNING_KEY = "defaultsignkey"
 val TOKEN_PREFIX = "Bearer "
 val HEADER_STRING = "Authorization"
 val ISSUER = "issuer"
