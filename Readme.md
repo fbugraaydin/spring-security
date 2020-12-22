@@ -10,7 +10,8 @@ This project is a restful backend project that authenticate and authorize users 
 - Used in-memory-db h2 to store default users that inserted while application runs(in SpringSecurityApplication)
 - Import postman collection **postman-collection.json** from project root directory.
 - Application default port :8080 or must change postman's port too.
-- *Or you don't need anything thanks to Docker :)  Just go to Let's Run section :)*
+
+**Hint**: *Or you don't need anything thanks to Docker :)  Just go to Let's Run section :)*
 
 ## Features
 - Generate JWT token by a username & password
@@ -26,7 +27,7 @@ This project is a restful backend project that authenticate and authorize users 
 
 Application is dockerized. Used 2 techniques:
 
-1. Dockerize and run via Gradle by using Palantir plugin. It is used Dockerfile where located in root directory.
+1. Dockerize and run via Gradle by using **Palantir** plugin. It is used Dockerfile where located in root directory.
 
     1.1. Locate root directory of project and execute command to prepare docker image:
     ```
@@ -45,10 +46,10 @@ Application is dockerized. Used 2 techniques:
     ```
     2.2. Run docker image
     ```
-    docker run -p 8080:8080 --name spring-security-server spring-security
+    docker run -p 8080:8080 --name spring-security-server fbugraaydin/spring-security-repo:0.0.1
     ```
     
-    **hint**: You can crate your own image from Dockerfile where located in dockerizeviagit/Dockerfile
+    **Hint**: You can crate your own image from Dockerfile where located in **dockerizeviagit/Dockerfile**
     
 Just send requests to http://localhost:8080/
 
