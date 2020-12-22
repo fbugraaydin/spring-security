@@ -7,10 +7,12 @@ plugins {
 	kotlin("plugin.spring") version "1.4.21"
 	kotlin("plugin.allopen") version "1.4.21"
 	kotlin("plugin.jpa") version "1.4.21"
+	id("com.palantir.docker") version "0.22.1"
+	id("com.palantir.docker-run") version "0.22.1"
 }
 
 group = "com.fbugraaydin"
-version = "0.0.1-SNAPSHOT"
+val dockerVersion = "0.0.1"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 allOpen {
@@ -19,6 +21,17 @@ allOpen {
 	annotation("javax.persistence.MappedSuperclass")
 }
 
+docker {
+	name = "${project.name}:${dockerVersion}"
+	files("build/libs/spring-security.jar")
+}
+
+dockerRun {
+	name = project.name
+	image = "${project.name}:${dockerVersion}"
+	ports("8080:8080")
+	clean = true
+}
 
 repositories {
 	mavenCentral()
