@@ -11,7 +11,7 @@ This project is a restful backend project that authenticate and authorize users 
 - Import postman collection **postman-collection.json** from project root directory.
 - Application default port :8080 or must change postman's port too.
 
-**Hint**: *Or you don't need anything thanks to Docker :)  Just go to Let's Run section :)*
+**Hint**: *Or you don't need ant these things thanks to Docker :)  Just go to **Let's Run** section :)*
 
 ## Features
 - Generate JWT token by a username & password
@@ -38,7 +38,7 @@ Application is dockerized. Used 2 techniques:
     ./gradlew dockerRun
     ```
 
-2. Dockerize project by getting current version. The docker image checks out project from GitHub.
+2. Dockerize project by getting current version. The docker image clones the project from GitHub.
 
     2.1. Pull docker image from DockerHub:
     ```
